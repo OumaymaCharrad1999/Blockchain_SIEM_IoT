@@ -1,0 +1,31 @@
+Requirements 
+    1) Install Docker 
+    2) Install GO language
+    3) Make sure that the rsyslog daemon is running 
+    4) And most importantly grap with you a cup of hot coffee <3 
+
+
+
+
+Steps 
+1) First configure the rsyslog daemon as the following. 
+    -------------------------------------------------
+
+# We will create a template in rsyslog configuration. The template allows us to control witch data would be printed in the log files
+    $template class, "%syslogseverity%,  %syslogfacility%, %timegenerated%,  %HOSTNAME%,  %syslogtag%,  %msg%\n"
+# The destination log file us the following. 
+# All the logs with all facilities and severities levels would be logged on this destination. 
+# Make sure to add the syslog file context on the directory in order to allow rsyslogs to log on the directory (SElinux <3).
+    *.* {{your project path}}/test-network/filename.txt;class
+
+    --------------------------------------------------
+
+2) Make sure to reload the rsyslog daemon.
+
+3) Run the ./test-network/mine.py python3 script.
+The previous script test each period of time if any new line is appended on the my log file. 
+If this is the case, a new block would be added on the ledger. 
+
+
+
+
